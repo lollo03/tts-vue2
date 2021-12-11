@@ -20,7 +20,7 @@
         <br />
         <div class="pitch-div">
           <div class="label"><b>Tempo prima di parlare : </b> &nbsp;&nbsp;{{ tempo }} sec</div>
-          <input class="rate" type="range" min="0.5" max="3" value="1" step="0.1" v-model="tempo" @change="salva()" />
+          <input class="rate" type="range" min="0.2" max="3" value="1" step="0.1" v-model="tempo" @change="salva()" />
         </div>
         <button @click="reset()" class="reset">Reset</button>
 
