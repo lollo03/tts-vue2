@@ -2,7 +2,7 @@
   <div id="app">
     <div class="text-to-speech">
       <h1>Text to speech</h1>
-      <textToSpeatch />
+      <textToSpeech />
     </div>
     <div class="footer">
       <p>Creato con &hearts; da Lorenzo Andreasi (<a href="https://github.com/lollo03">GitHub</a>)</p>
@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import textToSpeatch from "./components/textToSpeatch.vue";
+import textToSpeech from "./components/textToSpeech.vue";
 
 export default {
   name: "app",
   components: {
-    textToSpeatch,
+    textToSpeech,
   },
 };
 </script>

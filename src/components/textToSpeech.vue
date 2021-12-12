@@ -1,15 +1,20 @@
 <template>
-  <div class="textToSpeatch">
+  <div class="textToSpeech">
     <div class="row">
       <p>Scrivi un testo, dopo {{ tempo }} sec che non scrivi il computer inizierà a parlare. Dopo di che la textbox si cancellerà in automatico.</p>
       <p>Puoi impostare il tempo che il sito aspetterà prima di parlare nello slider in basso</p>
       <div class="left">
-        <textarea v-model="userInput" @input="textSpeak()"></textarea>
+        <textarea v-model="userInput" :style="fontSize" @input="textSpeak()"></textarea>
       </div>
       <div class="right">
         <br />
         <div class="rate-div">
-          <div class="label"><b>Velocità : </b> &nbsp;&nbsp;{{ rate }}</div>
+          <div class="label"><b>Dimensione font : </b> &nbsp;&nbsp;{{ fontsize }}</div>
+          <input class="rate" type="range" min="15" max="35" value="20" step="1" v-model="fontsize" @change="salva()" />
+        </div>
+        <br />
+        <div class="rate-div">
+          <div class="label"><b>Velocità : </b> &nbsp;&nbsp;{{ rate }}x</div>
           <input class="rate" type="range" min="0.5" max="3" value="1" step="0.1" v-model="rate" @change="salva()" />
         </div>
         <br />
@@ -35,11 +40,12 @@
 
 <script>
 export default {
-  name: "textToSpeatch",
+  name: "textToSpeech",
   data() {
     let tempo = localStorage.tempo ? localStorage.tempo : 1;
     let rate = localStorage.rate ? localStorage.rate : 1;
     let pitch = localStorage.pitch ? localStorage.pitch : 1;
+    let fontsize = localStorage.fontsize ? localStorage.fontsize : 20;
     return {
       userInput: "",
       pitch,
@@ -47,6 +53,7 @@ export default {
       synth: window.speechSynthesis,
       timer: undefined,
       tempo,
+      fontsize,
     };
   },
   methods: {
@@ -73,7 +80,7 @@ export default {
         this.userInput = "";
       }
     },
-    textSpeak(e) {
+    textSpeak() {
       clearTimeout(this.timer);
 
       this.timer = setTimeout(() => {
@@ -84,12 +91,21 @@ export default {
       localStorage.tempo = this.tempo;
       localStorage.rate = this.rate;
       localStorage.pitch = this.pitch;
+      localStorage.fontsize = this.fontsize;
     },
     reset() {
       this.tempo = 1;
       this.rate = 1;
       this.pitch = 1;
+      this.fontsize = 20;
       this.salva();
+    },
+  },
+  computed: {
+    fontSize() {
+      return {
+        "--font-size": `${this.fontsize}px`,
+      };
     },
   },
 };
@@ -116,8 +132,8 @@ textarea {
   height: 150px;
   border: 2px solid;
   padding: 10px;
-  font-size: 15px;
   resize: none;
+  font-size: var(--font-size);
 }
 
 textarea:hover {
