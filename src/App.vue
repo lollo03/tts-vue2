@@ -32,6 +32,7 @@ export default {
   margin-top: 60px;
 }
 .footer {
+  font-size: small;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -40,6 +41,7 @@ export default {
   color: white;
   background-color: #2c3e50;
   padding-bottom: 5px;
+  margin-top: 30px;
 }
 .footer a {
   color: orange;
